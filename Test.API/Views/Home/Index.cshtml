@@ -1,0 +1,163 @@
+﻿@using Test.Database.Models;
+@model IEnumerable<Person>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="~/Styles/StyleSheet.css">
+</head>
+<body>
+    <h4>Person List</h4>
+    <hr />
+    <table cellpadding="2" cellspacing="2">
+        <tr>
+            <th>ID</th>
+            <th>NameStyle</th>
+            <th>FirstName</th>
+            <th>MiddleName</th>
+            <th>LastName</th>
+            <th>PersonType</th>
+            <th>EmailPromotion</th>
+        </tr>
+        @foreach (Person person in Model)
+        {
+            <tr>
+                <td>@person.BusinessEntityId</td>
+                <td>@person.NameStyle</td>
+                <td>@person.FirstName</td>
+                <td>@person.MiddleName</td>
+                <td>@person.LastName</td>
+                <td>@person.PersonType</td>
+                <td>@person.EmailPromotion</td>
+                @*<td><button asp-page-handler="Delete" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm" action="">Delete</button></td>*@
+                <td>
+                    <form method="post" action="~/api/Home/in5?count=@person.BusinessEntityId">
+                        <input type="submit" onclick="return confirm('Are you sure you want to delete?')" value="Delete" />
+
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h2>Create</h2>
+                <form method="post" action="~/api/home/create">
+                    <p>
+                        <label asp-for="BusinessEntityId">ID:</label>
+                        <input type="number" asp-for="BusinessEntityId" name="BusinessEntityId" required />
+                    </p>
+                    <p>
+                        @*<label asp-for="PersonType">Person Type:</label>
+                            <input asp-for="PersonType" name="PersonType" />*@
+                        <label for="PersonType">Choose a person type:</label>
+                        <select id="PersonType" name="PersonType" required>
+                            <option value="EM">EM</option>
+                            <option value="IN">IN</option>
+                            <option value="GC">GC</option>
+                            <option value="SC">SC</option>
+                            <option value="SP">SP</option>
+                            <option value="VC">VC</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label asp-for="NameStyle">Name Style:</label>
+                        <input type="checkbox" asp-for="NameStyle" name="NameStyle" value="true" />
+                    </p>
+                    <p>
+                        <label asp-for="Title">Title:</label>
+                        <input type="text" asp-for="Title" name="Title" />
+                    </p>
+                    <p>
+                        <label asp-for="FirstName">First Name:</label>
+                        <input type="text" asp-for="FirstName" name="FirstName" required />
+
+                    </p>
+                    <p>
+                        <label asp-for="MiddleName">Middle Name:</label>
+                        <input type="text" asp-for="MiddleName" name="MiddleName" />
+
+                    </p>
+                    <p>
+                        <label asp-for="LastName">Last Name:</label>
+                        <input type="text" asp-for="LastName" name="LastName" required />
+
+                    </p>
+                    <p>
+                        <label asp-for="Suffix">Suffix:</label>
+                        <input type="text" asp-for="Suffix" name="Suffix" />
+
+                    </p>
+                    <p>
+                        <label asp-for="EmailPromotion">Email Promotion:</label>
+                        <input asp-for="EmailPromotion" name="EmailPromotion" type="number" min="0" max="2" required />
+                    </p>
+                    <p><button type="submit">Submit</button></p>
+                </form>
+            </div>
+            <div class="col-6 ">
+                <h2>Update</h2>
+                <form method="post" action="~/api/home/update">
+                    <p>
+                        <label asp-for="BusinessEntityId">ID:</label>
+                        <input type="number" asp-for="BusinessEntityId" name="BusinessEntityId" required />
+                    </p>
+                    <p>
+                        <label for="PersonType">Choose a person type:</label>
+                        <select id="PersonType" name="PersonType">
+                            <option value="EM">EM</option>
+                            <option value="IN">IN</option>
+                            <option value="GC">GC</option>
+                            <option value="SC">SC</option>
+                            <option value="SP">SP</option>
+                            <option value="VC">VC</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label asp-for="NameStyle">Name Style:</label>
+                        <input type="checkbox" asp-for="NameStyle" name="NameStyle" value="true" />
+                    </p>
+                    <p>
+                        <label asp-for="Title">Title:</label>
+                        <input type="text" asp-for="Title" name="Title" />
+                    </p>
+                    <p>
+                        <label asp-for="FirstName">First Name:</label>
+                        <input type="text" asp-for="FirstName" name="FirstName" />
+
+                    </p>
+                    <p>
+                        <label asp-for="MiddleName">Middle Name:</label>
+                        <input type="text" asp-for="MiddleName" name="MiddleName" />
+
+                    </p>
+                    <p>
+                        <label asp-for="LastName">Last Name:</label>
+                        <input type="text" asp-for="LastName" name="LastName" />
+
+                    </p>
+                    <p>
+                        <label asp-for="Suffix">Suffix:</label>
+                        <input type="text" asp-for="Suffix" name="Suffix" />
+
+                    </p>
+                    <p>
+                        <label asp-for="EmailPromotion">Email Promotion:</label>
+                        <input asp-for="EmailPromotion" name="EmailPromotion" type="number" min="0" max="2" />
+                    </p>
+                    <p><button type="submit">Submit</button></p>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
